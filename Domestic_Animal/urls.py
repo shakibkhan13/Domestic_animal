@@ -21,6 +21,12 @@ from home import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.animal)
+    path('',views.animal),
+    path('Home/', views.Home, name='home'),  # Update the URL pattern to include /Home/
+    path('blogs/', views.blogs, name='blogs'),
+    path('farm/', views.farm, name='farm'),
+    path('hospital/', views.hospital, name='hospital'),
+    path('login/', views.login, name='login'),
+    path('seller/', views.seller, name='seller'),
 ]
 
