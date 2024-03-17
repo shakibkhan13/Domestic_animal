@@ -9,4 +9,6 @@ class Animal(models.Model):
     Animal_Weight = models.TextField()
     Animal_description = models.TextField()
     Animal_image = models.ImageField(upload_to="animal")
+    Animal_Prize = models.TextField()
+    Animal_Farm = models.TextField()
     Animal_view_count = models.IntegerField(default=1)
