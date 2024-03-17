@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 def animal(request):
-    return render(request, 'index.html')
+    return render(request, 'seller.html')
 
 def blogs(request):
     return render(request, 'blogs.html')
