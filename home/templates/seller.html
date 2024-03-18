@@ -4,24 +4,25 @@
 
 <div class="container mt-5">
 
-    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data" >
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
         <h2> Sell your Animal </h2>
         <hr>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Animal_Name</label>
-            <input type="text" name="Animal_name" class="form-control">
+            <input type="text" required name="Animal_name" class="form-control">
           </div>
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Animal_weight</label>
-          <textarea class="form-control" name="Animal_Weight" ></textarea>
+          <textarea class="form-control" required name="Animal_Weight"></textarea>
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Animal_Prize</label>
-            <textarea class="form-control" name="Animal_Prize" ></textarea>
+            <textarea class="form-control" required name="Animal_Prize"></textarea>
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Farm_location</label>
-            <textarea class="form-control" name="Animal_Farm" ></textarea>
+            <textarea class="form-control" required name="Animal_Farm"></textarea>
           </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Animal_description</label>
@@ -29,11 +30,11 @@
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Animal_images</label>
-            <input type="file" name="Animal_image" class="form-control">
+            <input type="file" name="Animal_image" required class="form-control">
           </div>
         <button type="submit" class="btn btn-success">Post</button>
       </form>
 
 </div>
 
-{% endblock %} 
+{% endblock %}
