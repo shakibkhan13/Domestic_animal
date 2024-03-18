@@ -3,8 +3,8 @@ from django.shortcuts import render
 
 def animal(request):
 
-    
-    return render(request, 'seller.html')
+
+    return render(request, 'Home.html')
 
 def blogs(request):
     return render(request, 'blogs.html')
