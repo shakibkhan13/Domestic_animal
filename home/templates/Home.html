@@ -1,7 +1,27 @@
-{% extends "base.html"%}
+{% extends "base.html" %}
 {% block start %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}"
-<h1>Home</h1>
-
-{% endblock %} 
+<table class="table mt-5">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Animal Name</th>
+        <th scope="col">Animal Weight</th>
+        <th scope="col">Image</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for animal in animals %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ animal.Animal_name }}</td>
+        <td>{{ animal.Animal_Weight }}</td>
+        <td>
+          <img src="{{ animal.Animal_image.url }}" style="height: 100px">
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

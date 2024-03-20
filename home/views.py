@@ -2,7 +2,9 @@ from django.shortcuts import render
 from .models import Animal
 
 def animal(request):
-    return render(request, 'Home.html')
+    animals = Animal.objects.all()
+    return render(request, 'Home.html', {'animals': animals})
+
 
 def blogs(request):
     return render(request, 'blogs.html')
@@ -10,8 +12,6 @@ def blogs(request):
 def farm(request):
     return render(request, 'farm.html')
 
-def Home(request):
-    return render(request, 'Home.html')
 
 def hospital(request):
     return render(request, 'hospital.html')
@@ -29,7 +29,7 @@ def seller(request):
         Animal_description = data.get('Animal_description')
         Animal_image = request.FILES.get('Animal_image')
 
-        Animal.objects.create(
+        animal = Animal.objects.create(
             Animal_name=Animal_name,
             Animal_Weight=Animal_Weight,
             Animal_Prize=Animal_Prize,
@@ -37,10 +37,14 @@ def seller(request):
             Animal_description=Animal_description,
             Animal_image=Animal_image
         )
+
+        return render(request, 'seller.html')
+
     else:
         return render(request, 'seller.html')
 
-    return render(request, 'seller.html')
-
 def cart(request):
     return render(request, 'cart.html')
+
+def maps(request):
+    return render(request, 'maps.html')
