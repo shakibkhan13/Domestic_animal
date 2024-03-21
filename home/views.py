@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Animal
 
 def animal(request):
@@ -29,7 +29,7 @@ def seller(request):
         Animal_description = data.get('Animal_description')
         Animal_image = request.FILES.get('Animal_image')
 
-        animal = Animal.objects.create(
+        Animal.objects.create(
             Animal_name=Animal_name,
             Animal_Weight=Animal_Weight,
             Animal_Prize=Animal_Prize,
@@ -38,10 +38,15 @@ def seller(request):
             Animal_image=Animal_image
         )
 
-        return render(request, 'seller.html')
+        return redirect('/seller/')
 
-    else:
-        return render(request, 'seller.html')
+    queryset = Animal.objects.all()
+    context = {'seller':queryset}
+    return render(request, 'seller.html',context)
+def delete_animal(request ,id): 
+    queryset = Animal.objects.get(id=id)
+    queryset.delete()
+    return redirect('/seller/')
 
 def cart(request):
     return render(request, 'cart.html')

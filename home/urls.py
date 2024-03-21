@@ -10,5 +10,6 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('seller/', views.seller, name='seller'),
     path('cart/', views.cart, name='cart'), 
-    path('maps/',views.maps ,name='maps')
+    path('maps/',views.maps ,name='maps'),
+    path('delete-animal/<int:id>/', views.delete_animal, name="delete_animal")
 ]

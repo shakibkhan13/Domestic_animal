@@ -1,27 +1,48 @@
 {% extends "base.html" %}
-{% block start %}
 {% load static %}
-<table class="table mt-5">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Animal Name</th>
-        <th scope="col">Animal Weight</th>
-        <th scope="col">Image</th>
-        <th scope="col">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for animal in animals %}
-      <tr>
-        <th scope="row">{{ forloop.counter }}</th>
-        <td>{{ animal.Animal_name }}</td>
-        <td>{{ animal.Animal_Weight }}</td>
-        <td>
-          <img src="{{ animal.Animal_image.url }}" style="height: 100px">
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-</table>
+{% block start %}
+
+{% comment %} <div class="container">
+  <div class="row">
+    {% for sell in seller %}
+      <div class="col-md-4">
+        <div class="card">
+          <img src="/media/{{sell.Animal_image}}"  class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">{{sell.Animal_name}}</h5>
+            <p class="card-text">{{sell.Animal_Prize}}</p>
+            <button type="button" class="btn btn-primary">Add to Cart</button>
+            <a href="#" class="btn btn-light">View</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div> {% endcomment %}
+
+<div class="container">
+  <div class="row">
+    {% for animal in animals %}
+    <div class="col-md-4">
+      <div class="card">
+        <img src="/media/{{ animal.Animal_image }}" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">{{ animal.Animal_name }}</h5>
+          <p class="card-text">Weight: {{ animal.Animal_Weight }}</p>
+          <p class="card-text">Price: {{ animal.Animal_Prize }}</p>
+          <p class="card-text">Description: {{ animal.Animal_description }}</p>
+          <!-- Add to Cart button -->
+          <form action="{% url 'cart' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="animal_id" value="{{ animal.id }}">
+            <button type="submit" class="btn btn-primary">Add to Cart</button>
+              <a href="{% url 'delete_animal' animal.id %}" class="btn btn-danger m-2">Delete</a>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
 {% endblock %}
