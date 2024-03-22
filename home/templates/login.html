@@ -1,6 +1,30 @@
 {% extends "base.html"%}
 {% load static %}
 {% block start %}
-<h1>login</h1>
+<h2>login</h2>
+{% comment %} <div class="container mt-5">
+    <form class="col-6 max-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Login</h2>
+        <hr>
+        {% if messages %}
+        <div class="alert alert-primary" role="alert">
+          {% for message in messages %}
+          {{message}}
+          {% endfor %}
+        {% endif %}
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Username</label>
+              <input type="text" class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp"> {% endcomment %}
+              {% comment %} <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> {% endcomment %}
+            {% comment %} </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <p> Don't have account <a href="/register/">Register</a></p>
+            <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div> {% endcomment %}
 
 {% endblock %} 
