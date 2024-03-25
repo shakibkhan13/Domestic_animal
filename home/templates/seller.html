@@ -21,13 +21,32 @@
             <textarea class="form-control" required name="Animal_Prize"></textarea>
           </div>
           <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Farm_location</label>
-            <textarea class="form-control" required name="Animal_Farm"></textarea>
-          </div>
+            <label for="exampleInputPassword1" class="form-label">Farm Location</label>
+            <select id="farmLocation" class="form-control" required name="Animal_Farm">
+                <option value="" disabled selected>Select City</option>
+                <option value="Dhaka">Dhaka</option>
+                <option value="Mymensingh">Mymensingh</option>
+                <option value="Barishal">Barishal</option>
+                <option value="Chattogram">Chattogram</option>
+                <option value="Khulna">Khulna</option>
+                <option value="Rajshahi">Rajshahi</option>
+                <option value="Rangpur">Rangpur</option>
+                <option value="Sylhet">Sylhet</option>  
+            </select>
+        </div>
         <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Animal_description</label>
-            <textarea class="form-control" name="Animal_description"></textarea>
-          </div>
+            <label for="exampleInputPassword1" class="form-label">Animal_Colors</label>
+            <select id="farmLocation" class="form-control" required name="Animal_description">
+              <option value="" disabled selected>Choose Your Animal_Color</option>
+              <option value="Red">Red</option>
+              <option value="Black">Black</option>
+              <option value=">White">White</option>
+              <option value="Blue">Blue</option>
+              <option value="Green">Green</option>
+              <option value="Gray">Gray</option>
+              <option value="Navy">Navy</option> 
+          </select>
+        </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Animal_images</label>
             <input type="file" name="Animal_image" required class="form-control">

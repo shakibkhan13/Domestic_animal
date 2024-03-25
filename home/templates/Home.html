@@ -10,17 +10,18 @@
         <img src="/media/{{ animal.Animal_image }}" class="card-img-top" style="height: 200px">
         <div class="card-body">
           <h5 class="card-title">{{ animal.Animal_name }}</h5>
-          <p class="card-text">Weight: {{ animal.Animal_Weight }}</p>
-          <p class="card-text">Price: {{ animal.Animal_Prize }}</p>
+          <p class="card-text">Weight: {{ animal.Animal_Weight }} KG </p>
+          <p class="card-text">Price: {{ animal.Animal_Prize }} Taka</p>
           <p class="card-text">Farm Location: {{ animal.Animal_Farm }}</p>
-          <p class="card-text">Description: {{ animal.Animal_description }}</p>
+          {% comment %} <p class="card-text">Farm Location: {{ animal.Animal_color }}</p> {% endcomment %}
+          <p class="card-text">Animal_Color: {{ animal.Animal_description }}</p>
           
           <form action="{% url 'cart' %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="animal_id" value="{{ animal.id }}">
             <button type="submit" class="btn btn-primary">Add to Cart</button>
               <a href="#" class="btn btn-light" style="width: 100px">View</a>
-              {% comment %} <a href="{% url 'delete_animal' animal.id %}" class="btn btn-danger m-2">Delete</a> {% endcomment %}
+              <a href="{% url 'delete_animal' animal.id %}" class="btn btn-danger m-2">Delete</a>
           </form>
         </div>
       </div>
