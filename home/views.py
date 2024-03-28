@@ -19,6 +19,14 @@ def hospital(request):
 def login(request):
     return render(request, 'login.html')
 
+def Register(request):
+    if request.method == "POST":
+       full_name = request.POST.get('full_name')
+       Phone_number = request.POST.get('Phone_number')
+       Email_Address = request.POST.get('Email_Address')
+       password = request.POST.get('password')
+    return render(request, 'Register.html')
+
 def seller(request):
     if request.method == "POST":
         data = request.POST
