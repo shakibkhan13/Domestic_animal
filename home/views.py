@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Animal
+from django.contrib.auth.models import User
 
 def animal(request):
     animals = Animal.objects.all()
@@ -25,6 +26,15 @@ def Register(request):
        Phone_number = request.POST.get('Phone_number')
        Email_Address = request.POST.get('Email_Address')
        password = request.POST.get('password')
+       
+       user = User.objects.create_user(
+           username=Email_Address,
+           email=Email_Address,
+           password=password,
+           full_name=full_name,
+           phone_number=Phone_number,
+       )
+
     return render(request, 'Register.html')
 
 def seller(request):
