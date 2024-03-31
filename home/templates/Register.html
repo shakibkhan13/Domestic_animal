@@ -1,30 +1,32 @@
 {% extends "base.html"%}
-{% load static %}
 {% block start %}
-<div class="container mt-5">
-  <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <h2>Register</h2>
-    <hr>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Full Name</label>
-      <input type="text" class="form-control" name="full_name" id="exampleInputEmail1" aria-describedby="emailHelp">
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Phone Number</label>
-      <input type="text" class="form-control" name="Phone_number" id="exampleInputEmail1" aria-describedby="emailHelp">
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="email" class="form-control" name="Email_Address" id="exampleInputEmail1" aria-describedby="emailHelp">
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" name="password" id="exampleInputPassword1">
-    </div>
-    <p>Already have Account <a href="/login/">Login</a></p>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-</div>
-{% endblock %} 
+<form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <h2>Register</h2>
+  <hr>
+  {% if messages %}
+        <div class="alert alert-primary" role="alert">
+          {% for message in messages %}
+          {{message}}
+          {% endfor %}
+  {% endif %}
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Full Name</label>
+    <input type="text" class="form-control" name="full_name" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Phone Number</label>
+    <input type="text" class="form-control" name="phone_number" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" name="password1" id="exampleInputPassword1">
+  </div>
+  <p>Already have Account <a href="/login/">Login</a></p>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

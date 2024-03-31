@@ -1,12 +1,13 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 from .models import Animal, CustomUser
 
 def animal(request):
     animals = Animal.objects.all()
     return render(request, 'Home.html', {'animals': animals})
-
 
 def blogs(request):
     return render(request, 'blogs.html')
@@ -14,11 +15,30 @@ def blogs(request):
 def farm(request):
     return render(request, 'farm.html')
 
-
 def hospital(request):
     return render(request, 'hospital.html')
 
-def login(request):
+def login_page(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        if not User.objects.filter(username=username).exists():
+            messages.error(request, 'Invalid Username')
+            return redirect('/login/')
+        
+        user = authenticate(username=username, password=password)
+        
+        if user is None:
+            messages.error(request, 'Invalid Password')
+            return redirect('/login/')
+        elif not user.is_active:
+            messages.error(request, 'User is not active')
+            return redirect('/login/')
+        else:
+            login(request, user)
+            return redirect('/Home/')
+
     return render(request, 'login.html')
 
 def Register(request):
@@ -29,7 +49,7 @@ def Register(request):
             phone_number = form.cleaned_data.get('phone_number')
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
-            CustomUser.objects.create_user(
+            CustomUser.objects.create(
                 full_name=full_name,
                 phone_number=phone_number,
                 email=email,
@@ -66,6 +86,7 @@ def seller(request):
     queryset = Animal.objects.all()
     context = {'seller':queryset}
     return render(request, 'seller.html',context)
+
 def delete_animal(request ,id): 
     queryset = Animal.objects.get(id=id)
     queryset.delete()
