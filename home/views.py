@@ -1,6 +1,7 @@
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
-from .models import Animal
-from django.contrib.auth.models import User
+from .models import Animal, CustomUser
 
 def animal(request):
     animals = Animal.objects.all()
@@ -22,20 +23,24 @@ def login(request):
 
 def Register(request):
     if request.method == "POST":
-       full_name = request.POST.get('full_name')
-       Phone_number = request.POST.get('Phone_number')
-       Email_Address = request.POST.get('Email_Address')
-       password = request.POST.get('password')
-       
-       user = User.objects.create_user(
-           username=Email_Address,
-           email=Email_Address,
-           password=password,
-           full_name=full_name,
-           phone_number=Phone_number,
-       )
-
-    return render(request, 'Register.html')
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            full_name = form.cleaned_data.get('full_name')
+            phone_number = form.cleaned_data.get('phone_number')
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password1')
+            CustomUser.objects.create_user(
+                full_name=full_name,
+                phone_number=phone_number,
+                email=email,
+                password=password
+            )
+            user = authenticate(email=email, password=password)
+            login(request, user)
+            return redirect('home') 
+    else:
+        form = UserCreationForm()
+    return render(request, 'Register.html', {'form': form})
 
 def seller(request):
     if request.method == "POST":
