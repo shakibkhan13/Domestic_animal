@@ -1,22 +1,12 @@
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from .models import Animal, CustomUser
+from .models import Animal
 
-def animal(request):
+def home(request):
     animals = Animal.objects.all()
     return render(request, 'Home.html', {'animals': animals})
-
-def blogs(request):
-    return render(request, 'blogs.html')
-
-def farm(request):
-    return render(request, 'farm.html')
-
-def hospital(request):
-    return render(request, 'hospital.html')
 
 def login_page(request):
     if request.method == "POST":
@@ -32,35 +22,48 @@ def login_page(request):
         if user is None:
             messages.error(request, 'Invalid Password')
             return redirect('/login/')
-        elif not user.is_active:
-            messages.error(request, 'User is not active')
-            return redirect('/login/')
+        
         else:
             login(request, user)
-            return redirect('/Home/')
+            return redirect('/home/')
 
     return render(request, 'login.html')
 
+def blogs(request):
+    return render(request, 'blogs.html')
+
+def farm(request):
+    return render(request, 'farm.html')
+
+def hospital(request):
+    return render(request, 'hospital.html')
+
 def Register(request):
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            full_name = form.cleaned_data.get('full_name')
-            phone_number = form.cleaned_data.get('phone_number')
-            email = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password1')
-            CustomUser.objects.create(
-                full_name=full_name,
-                phone_number=phone_number,
-                email=email,
-                password=password
-            )
-            user = authenticate(email=email, password=password)
-            login(request, user)
-            return redirect('home') 
-    else:
-        form = UserCreationForm()
-    return render(request, 'Register.html', {'form': form})
+    if request.method != "POST":
+        return render(request, 'Register.html')   
+    first_name = request.POST.get('first_name')
+    last_name = request.POST.get('last_name')
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+
+    if not username:  
+        return redirect('/register/') 
+
+    user = User.objects.filter(username=username)
+
+    if user.exists():
+        messages.error(request, 'Username already taken')
+        return redirect('/register/')
+
+    user = User.objects.create_user(
+        username=username,
+        password=password,
+        first_name=first_name,
+        last_name=last_name,
+    )
+    user.save()
+    messages.success(request, 'Account created successfully')
+    return redirect('/register/')
 
 def seller(request):
     if request.method == "POST":
