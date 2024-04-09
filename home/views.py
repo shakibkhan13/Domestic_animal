@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .models import Animal
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     animals = Animal.objects.all()
@@ -28,6 +29,10 @@ def login_page(request):
             return redirect('/home/')
 
     return render(request, 'login.html')
+
+def logout_page(request) :
+    logout(request)
+    return redirect('/login/')
 
 def blogs(request):
     return render(request, 'blogs.html')
@@ -65,6 +70,7 @@ def Register(request):
     messages.success(request, 'Account created successfully')
     return redirect('/register/')
 
+@login_required(login_url="/login/")
 def seller(request):
     if request.method == "POST":
         data = request.POST
