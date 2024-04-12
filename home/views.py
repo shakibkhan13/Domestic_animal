@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from .models import Animal
 from django.contrib.auth.decorators import login_required
 
+@login_required(login_url="/login/")
 def home(request):
     animals = Animal.objects.all()
     return render(request, 'Home.html', {'animals': animals})
@@ -33,13 +34,14 @@ def login_page(request):
 def logout_page(request) :
     logout(request)
     return redirect('/login/')
-
+@login_required(login_url="/login/")
 def blogs(request):
     return render(request, 'blogs.html')
-
+@login_required(login_url="/login/")
 def farm(request):
     return render(request, 'farm.html')
 
+@login_required(login_url="/login/")
 def hospital(request):
     return render(request, 'hospital.html')
 
@@ -101,8 +103,10 @@ def delete_animal(request ,id):
     queryset.delete()
     return redirect('/seller/')
 
+@login_required(login_url="/login/")
 def cart(request):
     return render(request, 'cart.html')
 
+@login_required(login_url="/login/")
 def maps(request):
     return render(request, 'maps.html')

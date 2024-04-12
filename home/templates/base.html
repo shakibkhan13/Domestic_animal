@@ -36,11 +36,11 @@
                 {% comment %} <a href="{% url 'login' %}" class="btn btn-warning me-2 d-flex">Login</a> {% endcomment %}
                 {% if request.user.is_authenticated %}
                     <a href="/logout/" class="btn btn-success" type="submit">Logout</a>
-                {% else %}
                     <a href="{% url 'cart' %}" class="me-2 d-flex">
                         <img id="cart-icon" src="{% static 'images/cart.png' %}">
                     </a>
                     <p id="cart-total" class="mt-2">0</p>
+                    
                 {% endif %} <!-- Closing if block -->
             </div>
         </div>
