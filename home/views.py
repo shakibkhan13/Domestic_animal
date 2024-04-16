@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url="/login/")
 def home(request):
     animals = Animal.objects.all()
-    return render(request, 'Home.html', {'animals': animals})
+    return render(request, 'home.html', {'animals': animals})
 
 def login_page(request):
     if request.method == "POST":
@@ -31,12 +31,14 @@ def login_page(request):
 
     return render(request, 'login.html')
 
-def logout_page(request) :
+def logout_page(request):
     logout(request)
     return redirect('/login/')
+
 @login_required(login_url="/login/")
 def blogs(request):
     return render(request, 'blogs.html')
+
 @login_required(login_url="/login/")
 def farm(request):
     return render(request, 'farm.html')
@@ -47,7 +49,7 @@ def hospital(request):
 
 def Register(request):
     if request.method != "POST":
-        return render(request, 'Register.html')   
+        return render(request, 'register.html')   
     first_name = request.POST.get('first_name')
     last_name = request.POST.get('last_name')
     username = request.POST.get('username')
@@ -110,3 +112,6 @@ def cart(request):
 @login_required(login_url="/login/")
 def maps(request):
     return render(request, 'maps.html')
+
+def Checkout(request):
+    return render(request, 'checkout.html')
