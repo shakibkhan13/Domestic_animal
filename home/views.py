@@ -112,3 +112,6 @@ def cart(request):
 @login_required(login_url="/login/")
 def maps(request):
     return render(request, 'maps.html')
+
+def Checkout(request):
+    return render(request, 'checkout.html')
