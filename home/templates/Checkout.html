@@ -55,12 +55,11 @@
             <hr>
             <h3>Order Summary</h3>
             <hr>
-            {% for item in items %}
+            {% for animal in animals %}
             <div class="cart-row">
-                <div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>
-                <div style="flex:2"><p>{{item.product.name}}</p></div>
-                <div style="flex:1"><p>${{item.product.price|floatformat:2}}</p></div>
-                <div style="flex:1"><p>x{{item.quantity}}</p></div>
+                <div style="flex:2"><img class="row-image" src="/media/{{ animal.Animal_image }}"></div>
+                <div style="flex:2"><p>{{ animal.Animal_name }}</p></div>
+                <div style="flex:1"><p>{{ animal.Animal_Prize }} Taka</p></div>
             </div>
             {% endfor %}
             <h5>Items:   {{order.get_cart_items}}</h5>
@@ -73,15 +72,12 @@
 
 <script>
     var total = '{{order.get_cart_total}}'
-    // Render the PayPal button into #paypal-button-container
     paypal.Buttons({
 
         style: {
             color:  'blue',
             shape:  'rect',
         },
-
-        // Set up the transaction
         createOrder: function(data, actions) {
             return actions.order.create({
                 purchase_units: [{
@@ -91,11 +87,8 @@
                 }]
             });
         },
-
-        // Finalize the transaction
         onApprove: function(data, actions) {
             return actions.order.capture().then(function(details) {
-                // Show a success message to the buyer
                 submitFormData()
             });
         }
@@ -115,9 +108,7 @@
      }
 
     if (shipping == 'False' && user != 'AnonymousUser'){
-        //Hide entire form if user is logged in and shipping is false
             document.getElementById('form-wrapper').classList.add("hidden");
-            //Show payment if logged in user wants to buy an item that does not require shipping
             document.getElementById('payment-info').classList.remove("hidden");
     }
 
@@ -129,11 +120,6 @@
         document.getElementById('payment-info').classList.remove("hidden");
     })
 
-    /*
-    document.getElementById('make-payment').addEventListener('click', function(e){
-        submitFormData()
-    })
-    */
 
     function submitFormData(){
         console.log('Payment button clicked')
