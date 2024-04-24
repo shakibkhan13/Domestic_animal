@@ -7,13 +7,13 @@
     {% for animal in animals %}
     <div class="col-md-4">
       <div class="card">
-        <img src="/media/{{ animal.Animal_image }}" class="card-img-top" style="height: 200px">
+        <img src="{{ animal.Animal_image.url }}" class="card-img-top" style="height: 200px">
         <div class="card-body">
           <h5 class="card-title">{{ animal.Animal_name }}</h5>
-          <p class="card-text">Weight: {{ animal.Animal_Weight }} KG </p>
+          <p class="card-text">Weight: {{ animal.Animal_Weight }} KG</p>
           <p class="card-text">Price: {{ animal.Animal_Prize }} Taka</p>
           <p class="card-text">Farm Location: {{ animal.Animal_Farm }}</p>
-          <p class="card-text">Animal_Color: {{ animal.Animal_description }}</p>
+          <p class="card-text">Animal Color: {{ animal.Animal_description }}</p>
           
           <form action="{% url 'cart' %}" method="post">
             {% csrf_token %}
