@@ -107,8 +107,10 @@ def delete_animal(request ,id):
 
 @login_required(login_url="/login/")
 def cart(request):
-    return render(request, 'cart.html')
-
+    cart_items = []
+    total = 0
+    context = {'cart_items': cart_items, 'total': total}
+    return render(request, 'cart.html', context)
 @login_required(login_url="/login/")
 def maps(request):
     return render(request, 'maps.html')
