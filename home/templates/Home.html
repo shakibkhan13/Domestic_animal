@@ -14,11 +14,13 @@
           <p class="card-text">Price: {{ animal.Animal_Prize }} Taka</p>
           <p class="card-text">Farm Location: {{ animal.Animal_Farm }}</p>
           <p class="card-text">Animal Color: {{ animal.Animal_description }}</p>
-          
+
           <form action="{% url 'cart' %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="animal_id" value="{{ animal.id }}">
             <button type="submit" class="btn btn-primary">Add to Cart</button>
+            <!-- <a href="#" class="btn btn-light" style="width: 100px">View</a>
+            <a href="{% url 'delete_animal' animal.id %}" class="btn btn-danger m-2">Delete</a>  -->
           </form>
         </div>
       </div>
@@ -26,5 +28,7 @@
     {% endfor %}
   </div>
 </div>
+
+
 
 {% endblock %}

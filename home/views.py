@@ -9,7 +9,7 @@ from django.db.models import Sum
 
 
 
-@login_required(login_url="/login/")
+# @login_required(login_url="/login/")
 def home(request):
     animals = Animal.objects.all()
     return render(request, 'home.html', {'animals': animals})
@@ -41,9 +41,10 @@ def logout_page(request):
 
 @login_required(login_url="/login/")
 def blogs(request):
+    animals = Animal.objects.all()
     return render(request, 'blogs.html')
 
-@login_required(login_url="/login/")
+# @login_required(login_url="/login/")
 def farm(request):
     return render(request, 'farm.html')
 

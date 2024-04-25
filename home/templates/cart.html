@@ -7,14 +7,14 @@
 
       <br />
       <br />
-
+      {% for animal in animals %}
       <table class="table">
         <tr>
           <th>
             <h5>Items : <strong>1</strong></h5>
           </th>
           <th>
-            <h5>Total : <strong>120000 Taka</strong></h5>
+            <h5>Total : <strong>{{ animal.Animal_Prize }}</strong></h5>
           </th>
           <th>
             <a style="float: right; margin: 5px" class="btn btn-success" href="{% url 'checkout' %}">Checkout</a>
@@ -22,6 +22,7 @@
         </tr>
       </table>
     </div>
+    {% endfor %}
     <br />
 
     <div class="box-element">
@@ -49,7 +50,7 @@
 
           </div>
         </div>
-        <div style="flex: 1">120000</div>
+        <div style="flex: 1">{{ animal.Animal_Prize }}</div>
 
       </div>
 
