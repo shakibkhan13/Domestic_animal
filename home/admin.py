@@ -7,7 +7,7 @@ class AnimalAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('user', 'total_amount', 'date_ordered')
+    list_display = ('customer', 'complete', 'date_ordered')
 
 @admin.register(ShippingAddress)
 class ShippingAddressAdmin(admin.ModelAdmin):
