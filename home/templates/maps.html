@@ -3,118 +3,147 @@
 {% block start %}
 
 <head>
-    <title>CowBazar.com</title>
-    <style>
-      body{
-        font-family:arial,sans-serif;
-        line-height:1.6;
-        font-size:20px;
-      }  
-      header{
-        background-color:rgba(192, 18, 18, 0.895);
-        color:#fff;
-        padding:20px;
-        text-align:center;
-        margin-bottom:30px;
-      }
-      #email{
-        background-color: rgba(192, 18, 18, 0.895);
-        color:#fff;
-        padding:20px;
-        text-align:center;
-        margin-bottom: 30px;
-      }
-      header h1{
-        font-size:32px;
-      }
-      nav ul{
-        list-style-type: none;
-      }
-      nav ul li{
-        display:inline;
-        margin-right: 20px;
-      }
-      nav ul li:last-child{
-        margin-right: 0;
-     }
-     nav a {
-        text-decoration: none;
-        color:#fff;
+  <title>CowBazar.com</title>
+  <style>
+    body {
+      font-family: arial, sans-serif;
+      line-height: 1.6;
+      font-size: 20px;
+    }
 
-     }
-     nav a.policy1{
-        font-weight:bold;
-     }
-     main{
-        padding:25px;
-     }
-     section{
-        margin-bottom:30px;
-     }
-     h2{
-        font-size:24px;
-        margin-bottom:15px;
-     }
-     footer{
-        background-color: #333;
-        color:#fff;
-        text-align:center;
-        padding:10px 0;
-     }
-    </style>
+    header {
+      background-color: rgba(192, 18, 18, 0.895);
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    #email {
+      background-color: rgba(192, 18, 18, 0.895);
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 32px;
+    }
+
+    nav ul {
+      list-style-type: none;
+    }
+
+    nav ul li {
+      display: inline;
+      margin-right: 20px;
+    }
+
+    nav ul li:last-child {
+      margin-right: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #fff;
+
+    }
+
+    nav a.policy1 {
+      font-weight: bold;
+    }
+
+    main {
+      padding: 25px;
+    }
+
+    section {
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+    }
+  </style>
 </head>
 
-     
-<img src="{% static 'images/images7.jpg'%}" alt="cowimage2" width="1050px" height="auto"  > 
- 
+
+<img src="{% static 'images/images7.jpg'%}" alt="cowimage2" width="1050px" height="auto">
+
 <main>
-    <div>
-        <h1>Return Policy</h1>
-        <ol>
-            <li>
-                <h2>Return and Refund</h2>
-                <p>At CowBazar.com, we are committed to providing high-quality livestock and ensuring customer satisfaction with every purchase. While we strive to deliver healthy and well-cared-for animals, we understand that circumstances may arise where a return or refund is necessary.</p>
-            </li>
-            <li>
-                <h2>Eligibility of Return</h2>
-                <p>Returns may be accepted under the following conditions:</p>
-                <ul>
-                    <li>Health Concerns: If a purchased animal is found to have a pre-existing health condition that was not disclosed at the time of purchase and significantly impacts its suitability for its intended purpose (e.g., breeding, meat production, or egg laying), a return may be considered</li>
-                    <li>Misrepresentation: If the animal received does not match the description provided on our website or exhibits characteristics significantly different from what was advertised, a return may be initiated.</li>
-                </ul>
-            </li>
-            <li>
-                <h1>Return Process</h1>
-                <ul>
-                    <li>Notification: Customers must notify us of their intention to return an animal within [1 days] of receiving the livestock. Notification should include details of the issue encountered and relevant documentation, such as veterinary reports or photographic evidence. </li>
-                    <li>Evaluation: Upon receiving the notification, our team will assess the situation and may request further information or arrange for an on-site evaluation by a qualified veterinarian to determine the validity of the return request.</li>
-                    <li>Approval: If the return request is deemed valid based on our evaluation, we will provide instructions for returning the animal to our facility. The customer will be responsible for arranging and covering the costs associated with the return shipping.</li>
-                    <li>Refund or Replacement: Upon receiving the returned animal and verifying its condition, we will proceed with issuing a refund or offering a replacement animal, depending on the customer's preference and the availability of suitable livestock.</li>
-                </ul>
-            </li>
-            <li>
-                <h2>Exclusions</h2>
-                <p>Please note that certain circumstances may invalidate a return request, including: </p>
-                <ul>
-                    <li>Changes in Customer Circumstances: Returns will not be accepted due to changes in the customer's circumstances, such as a change in farming practices, financial difficulties, or personal preferences.</li>
-                    <li>Negligence or Mismanagement: Returns will not be accepted if the health issues or discrepancies observed in the animal result from neglect, improper care, or mismanagement on the customer's part.
-                    </li>
-                    <li>Breeding or Production Outcomes: Returns will not be accepted based on the animal's performance in terms of breeding success, milk production, egg laying, or meat quality, as these factors can be influenced by various external factors beyond our control.</li>
-                </ul>
-            </li>
-            
-        </ol>
-    </div>
-    <section id="email">
-        <h2>For any further query:</h2>
-        <p>cowbazar@gmail.com</p>
-    </section>
+  <div>
+    <h1>Return Policy</h1>
+    <ol>
+      <li>
+        <h2>Return and Refund</h2>
+        <p>At CowBazar.com, we are committed to providing high-quality livestock and ensuring customer satisfaction with
+          every purchase. While we strive to deliver healthy and well-cared-for animals, we understand that
+          circumstances may arise where a return or refund is necessary.</p>
+      </li>
+      <li>
+        <h2>Eligibility of Return</h2>
+        <p>Returns may be accepted under the following conditions:</p>
+        <ul>
+          <li>Health Concerns: If a purchased animal is found to have a pre-existing health condition that was not
+            disclosed at the time of purchase and significantly impacts its suitability for its intended purpose (e.g.,
+            breeding, meat production, or egg laying), a return may be considered</li>
+          <li>Misrepresentation: If the animal received does not match the description provided on our website or
+            exhibits characteristics significantly different from what was advertised, a return may be initiated.</li>
+        </ul>
+      </li>
+      <li>
+        <h1>Return Process</h1>
+        <ul>
+          <li>Notification: Customers must notify us of their intention to return an animal within [1 days] of receiving
+            the livestock. Notification should include details of the issue encountered and relevant documentation, such
+            as veterinary reports or photographic evidence. </li>
+          <li>Evaluation: Upon receiving the notification, our team will assess the situation and may request further
+            information or arrange for an on-site evaluation by a qualified veterinarian to determine the validity of
+            the return request.</li>
+          <li>Approval: If the return request is deemed valid based on our evaluation, we will provide instructions for
+            returning the animal to our facility. The customer will be responsible for arranging and covering the costs
+            associated with the return shipping.</li>
+          <li>Refund or Replacement: Upon receiving the returned animal and verifying its condition, we will proceed
+            with issuing a refund or offering a replacement animal, depending on the customer's preference and the
+            availability of suitable livestock.</li>
+        </ul>
+      </li>
+      <li>
+        <h2>Exclusions</h2>
+        <p>Please note that certain circumstances may invalidate a return request, including: </p>
+        <ul>
+          <li>Changes in Customer Circumstances: Returns will not be accepted due to changes in the customer's
+            circumstances, such as a change in farming practices, financial difficulties, or personal preferences.</li>
+          <li>Negligence or Mismanagement: Returns will not be accepted if the health issues or discrepancies observed
+            in the animal result from neglect, improper care, or mismanagement on the customer's part.
+          </li>
+          <li>Breeding or Production Outcomes: Returns will not be accepted based on the animal's performance in terms
+            of breeding success, milk production, egg laying, or meat quality, as these factors can be influenced by
+            various external factors beyond our control.</li>
+        </ul>
+      </li>
+
+    </ol>
+  </div>
+  <section id="email">
+    <h2 style="color: white;"><b>For any further query:</b></h2>
+    <p>cowbazar@gmail.com</p>
+  </section>
 </main>
 <footer>
-     <div class="footer">
-        <p> Copyrigth &copy;2024 Cow Bazar.com.All rights reserved.</p>
-     </div> 
+  <div class="footer">
+    <p> Copyrigth &copy;2024 Cow Bazar.com.All rights reserved.</p>
+  </div>
 </footer>
 
 
-{% endblock %} 
+{% endblock %}
