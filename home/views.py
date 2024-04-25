@@ -1,9 +1,13 @@
+# views.py
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .models import Animal
+from .models import Animal, Order, ShippingAddress
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
+
+
 
 @login_required(login_url="/login/")
 def home(request):
@@ -97,8 +101,8 @@ def seller(request):
         return redirect('/seller/')
 
     queryset = Animal.objects.all()
-    context = {'seller':queryset}
-    return render(request, 'seller.html',context)
+    context = {'seller': queryset}
+    return render(request, 'seller.html', context)
 
 def delete_animal(request ,id): 
     queryset = Animal.objects.get(id=id)
@@ -107,11 +111,15 @@ def delete_animal(request ,id):
 
 @login_required(login_url="/login/")
 def cart(request):
-    return render(request, 'cart.html')
+    animals = Animal.objects.all()
+    total = sum(animal.Animal_Prize for animal in animals)
+    return render(request, 'cart.html', {'animals': animals, 'total': total})
+
 
 @login_required(login_url="/login/")
 def maps(request):
     return render(request, 'maps.html')
 
-def Checkout(request):
-    return render(request, 'checkout.html')
+def checkout(request):
+    animals = Animal.objects.all()
+    return render(request, 'checkout.html', {'animals': animals})
