@@ -1,127 +1,132 @@
-
-{% extends "base.html" %}
-{% load static %}
-
-{% block start %}
+{% extends "base.html" %} {% load static %} {% block start %}
 <div class="row">
     <div class="col-lg-6">
         <div class="box-element" id="form-wrapper">
             <form id="form">
                 <div id="user-info">
                     <div class="form-field">
-                        <input required class="form-control" type="text" name="name" placeholder="Name..">
+                        <input required class="form-control" type="text" name="name" placeholder="Name.." />
                     </div>
                     <div class="form-field">
-                        <input required class="form-control" type="email" name="email" placeholder="Email..">
-                    </div>
-                </div>
-                
-                <div id="shipping-info">
-                    <hr>
-                    <p>Shipping Information:</p>
-                    <hr>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="address" placeholder="Address..">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="city" placeholder="City..">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="state" placeholder="State..">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="country" placeholder="Country..">
+                        <input required class="form-control" type="email" name="email" placeholder="Email.." />
                     </div>
                 </div>
 
-                <hr>
-                <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+                <div id="shipping-info">
+                    <hr />
+                    <p>Shipping Information:</p>
+                    <hr />
+                    <div class="form-field">
+                        <input class="form-control" type="text" name="address" placeholder="Address.." />
+                    </div>
+                    <div class="form-field">
+                        <input class="form-control" type="text" name="city" placeholder="City.." />
+                    </div>
+                    <div class="form-field">
+                        <input class="form-control" type="text" name="state" placeholder="State.." />
+                    </div>
+                    <div class="form-field">
+                        <input class="form-control" type="text" name="zipcode" placeholder="Zip code.." />
+                    </div>
+                    <div class="form-field">
+                        <input class="form-control" type="text" name="country" placeholder="Country.." />
+                    </div>
+                </div>
+
+                <hr />
+                <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue" />
             </form>
         </div>
 
-        <br>
+        <br />
         <div class="box-element hidden" id="payment-info">
-            <small>Card Options</small>
+            <small>Paypal Options</small>
             <div id="paypal-button-container"></div>
         </div>
-        
     </div>
 
     <div class="col-lg-6">
         <div class="box-element">
             <a class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
-            <hr>
+            <hr />
             <h3>Order Summary</h3>
-            <hr>
+            <hr />
             {% for animal in animals %}
             <div class="cart-row">
-                <div style="flex:2"><img class="row-image" src="{{ animal.Animal_image.url }}"></div>
-                <div style="flex:2"><p>{{ animal.Animal_name }}</p></div>
-                <div style="flex:1"><p>{{ animal.Animal_Prize }} Taka</p></div>
+                <div style="flex: 2">
+                    <img class="row-image" src="{{ animal.Animal_image.url }}">
+                </div>
+                <div style="flex:2">{{ animal.Animal_name }}</div>
+                <div style="flex: 1">{{ animal.Animal_Prize }}</div>
+                <div style="flex: 1;">x2</div>
             </div>
             {% endfor %}
-            <h5>Items:   {{ order.get_cart_items }}</h5>
-            <h5>Total:   ${{ order.get_cart_total|floatformat:2 }}</h5>
+
+            <hr />
+            <h5>Items : 2</h5>
+            <h5>Total : 240000</h5>
         </div>
     </div>
 </div>
 
-<script src="https://www.paypal.com/sdk/js?client-id=ARCk7_B2WwyYTKPqbsTn0BwfEwotMyYIs82rvyYJ0l64M0pXo8FBTL1SsLCnQdTYOr0YsNi0mVEOF3Kj&currency=USD&disable-funding=credit"></script>
+<script
+    src="https://www.paypal.com/sdk/js?client-id=ARCk7_B2WwyYTKPqbsTn0BwfEwotMyYIs82rvyYJ0l64M0pXo8FBTL1SsLCnQdTYOr0YsNi0mVEOF3Kj&currency=USD&disable-funding=credit"></script>
 
 <script>
-    var total = '{{ order.get_cart_total }}';
-    paypal.Buttons({
-        style: {
-            color: 'blue',
-            shape: 'rect',
-        },
-        createOrder: function(data, actions) {
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: parseFloat(total).toFixed(2)
-                    }
-                }]
-            });
-        },
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-                submitFormData();
-            });
-        }
-    }).render('#paypal-button-container');
+    var total = "{{ order.get_cart_total }}";
+    paypal
+        .Buttons({
+            style: {
+                color: "blue",
+                shape: "rect",
+            },
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [
+                        {
+                            amount: {
+                                value: parseFloat(total).toFixed(2),
+                            },
+                        },
+                    ],
+                });
+            },
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function (details) {
+                    submitFormData();
+                });
+            },
+        })
+        .render("#paypal-button-container");
 
-    var form = document.getElementById('form');
-    form.addEventListener('submit', function(e){
+    var form = document.getElementById("form");
+    form.addEventListener("submit", function (e) {
         e.preventDefault();
-        console.log('Form Submitted...');
-        document.getElementById('form-button').classList.add("hidden");
-        document.getElementById('payment-info').classList.remove("hidden");
+        console.log("Form Submitted...");
+        document.getElementById("form-button").classList.add("hidden");
+        document.getElementById("payment-info").classList.remove("hidden");
     });
 
-    function submitFormData(){
-        console.log('Payment button clicked');
+    function submitFormData() {
+        console.log("Payment button clicked");
 
         var userFormData = {
-            'name': null,
-            'email': null,
-            'total': total,
+            name: null,
+            email: null,
+            total: total,
         };
 
         var shippingInfo = {
-            'address': null,
-            'city': null,
-            'state': null,
-            'zipcode': null,
-            'country': null,
+            address: null,
+            city: null,
+            state: null,
+            zipcode: null,
+            country: null,
         };
 
-        var csrftoken = getCookie('csrftoken');
+        var csrftoken = getCookie("csrftoken");
 
-        if (shipping !== 'False'){
+        if (shipping !== "False") {
             shippingInfo.address = form.address.value;
             shippingInfo.city = form.city.value;
             shippingInfo.state = form.state.value;
@@ -129,43 +134,42 @@
             shippingInfo.country = form.country.value;
         }
 
-        if (user !== 'AnonymousUser'){
+        if (user !== "AnonymousUser") {
             userFormData.name = form.name.value;
             userFormData.email = form.email.value;
         }
 
-        console.log('Shipping Info:', shippingInfo);
-        console.log('User Info:', userFormData);
+        console.log("Shipping Info:", shippingInfo);
+        console.log("User Info:", userFormData);
 
         var url = "/process_order/";
         fetch(url, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken,
-            }, 
-            body: JSON.stringify({'form': userFormData, 'shipping': shippingInfo}),
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken,
+            },
+            body: JSON.stringify({ form: userFormData, shipping: shippingInfo }),
         })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log('Success:', data);
-            alert('Transaction completed');  
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Success:", data);
+                alert("Transaction completed");
 
-            var cart = {};
-            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/";
+                var cart = {};
+                document.cookie = "cart=" + JSON.stringify(cart) + ";domain=;path=/";
 
-            window.location.href = "{% url 'home' %}";
-
-        });
+                window.location.href = "{% url 'home' %}";
+            });
     }
 
     function getCookie(name) {
         var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
+        if (document.cookie && document.cookie !== "") {
+            var cookies = document.cookie.split(";");
             for (var i = 0; i < cookies.length; i++) {
                 var cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                if (cookie.substring(0, name.length + 1) === name + "=") {
                     cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                     break;
                 }

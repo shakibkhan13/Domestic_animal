@@ -5,6 +5,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .models import Animal, Order, ShippingAddress
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
+
+
 
 @login_required(login_url="/login/")
 def home(request):
@@ -107,32 +110,16 @@ def delete_animal(request ,id):
     return redirect('/seller/')
 
 @login_required(login_url="/login/")
-@login_required(login_url="/login/")
 def cart(request):
-    cart_items = [
-        {
-            'name': 'Item 1',
-            'price': 10.0,
-            'quantity': 2,
-            'total': 20.0,
-            'image_url': '/path/to/item1/image.jpg'  
-        },
-        {
-            'name': 'Item 2',
-            'price': 15.0,
-            'quantity': 1,
-            'total': 15.0,
-            'image_url': ' Animal_image'  
-        },
-    ]
-    total = sum(item['total'] for item in cart_items)
-    context = {'cart_items': cart_items, 'total': total}
-    return render(request, 'cart.html', context)
+    animals = Animal.objects.all()
+    total = sum(animal.Animal_Prize for animal in animals)
+    return render(request, 'cart.html', {'animals': animals, 'total': total})
 
 
 @login_required(login_url="/login/")
 def maps(request):
     return render(request, 'maps.html')
 
-def Checkout(request):
-    return render(request, 'checkout.html')
+def checkout(request):
+    animals = Animal.objects.all()
+    return render(request, 'checkout.html', {'animals': animals})
