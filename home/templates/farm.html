@@ -1,14 +1,100 @@
 {% extends "base.html"%}
 {% load static %}
 {% block start %}
-<p>
-Welcome to our online marketplace dedicated to connecting animal enthusiasts with their perfect farm companions! At our platform, you can explore a diverse selection of domestic animals, including gentle cows and lively goats.</p>
-<p>
-We're committed to providing a safe and user-friendly environment for both buyers and sellers. With our integrated PayPal payment system, purchasing your new farm friend is secure and hassle-free.
-</p>
-<p>
-Whether you're seeking a dairy cow to provide fresh milk, a playful goat for companionship,  our platform offers a reliable way to connect with fellow farmers and animal lovers alike.
-Join our community today and discover the joy of farm life with your new furry  or hoofed friend by your side!
-</p>
+<head>
+    <meta charset="utf-8">
+    <title>CowBazar.com</title>
+    <style>
+      body{
+        font-family:arial,sans-serif;
+        line-height:1.6;
+        font-size:20px;
+      }  
+      header{
+        background-color:rgba(192, 18, 18, 0.895);
+        color:#fff;
+        padding:20px;
+        text-align:center;
+        margin-bottom:30px;
+      }
+      #email{
+        background-color: rgba(192, 18, 18, 0.895);
+        color:#fff;
+        padding:20px;
+        text-align:center;
+        margin-bottom: 30px;
+      }
+      header h1{
+        font-size:32px;
+      }
+      nav ul{
+        list-style-type: none;
+      }
+      nav ul li{
+        display:inline;
+        margin-right: 20px;
+      }
+      nav ul li:last-child{
+        margin-right: 0;
+     }
+     nav a {
+        text-decoration: none;
+        color:#fff;
+
+     }
+     nav a.active{
+        font-weight:bold;
+     }
+     main{
+        padding:25px;
+     }
+     section{
+        margin-bottom:30px;
+     }
+     h2{
+        font-size:24px;
+        margin-bottom:15px;
+     }
+     footer{
+        background-color: #333;
+        color:#fff;
+        text-align:center;
+        padding:10px 0;
+     }
+    </style>
+</head>
+<body>
+
+     
+<img src="{% static 'images/image1.jpeg'%}" alt="cowimage" width="1050px" height="auto"  > 
+ 
+<main>
+    <section id="About">
+        <h2><b>About Us</b></h2>
+        <p>Welcome to Cow Bazar.Com! We are a dedicated team passionate about providing the best cows,goats,Chickens and Ducks to our customers. Our mission is to connect farmers with individuals and businesses in need of high-quality livestock. With years of experience in the industry, we ensure that every cow,goat,chicken or duck you purchase from us is healthy, well-cared for, and ready to meet your needs.</p>
+        <p>At Cow Bazar.Com, we understand the importance of transparency and customer satisfaction. That's why we provide detailed information about each cow,goat,chicken or duck, including breed, age, health history, and more. Whether you're looking for dairy cows, beef cattle, or breeding stock, we have a wide selection to choose from.</p>
+        <p>Our team is here to assist you every step of the way, from browsing our inventory to arranging delivery to your location. We pride ourselves on excellent customer service and are committed to ensuring your experience with us is seamless and enjoyable.</p>
+        <p>Thank you for choosing Cow Bazr.Com for all your livestock needs. We look forward to serving you!</p>
+    </section>
+    <section id="service">
+        <h2><b>Services</b></h2>
+        <ul>
+            <li>An online market place for selling cows,goats,chicken and ducks</li>
+            <li>An online market place for purchasing cows,goats,chicken and ducks</li>
+            <li>A place for sharing blogs and information</li>
+            <li>Offering valuable resources and guides on livestock farming practices, including care, breeding, and health management.</li>
+            <li>Ensuring customer satisfaction through quality assurance and a responsive customer service team.</li>
+        </ul>
+    </section>
+    <section id="email">
+        <h2>For any further query:</h2>
+        <p>cowbazar@gmail.com</p>
+    </section>
+</main>
+<footer>
+     <div class="footer">
+        <p> Copyrigth &copy;2024 Cow Bazar.com.All rights reserved.</p>
+     </div> 
+</footer>
 
 {% endblock %} 
