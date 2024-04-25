@@ -39,7 +39,7 @@ def logout_page(request):
     logout(request)
     return redirect('/login/')
 
-@login_required(login_url="/login/")
+# @login_required(login_url="/login/")
 def blogs(request):
     animals = Animal.objects.all()
     return render(request, 'blogs.html')
@@ -117,7 +117,6 @@ def cart(request):
     return render(request, 'cart.html', {'animals': animals, 'total': total})
 
 
-@login_required(login_url="/login/")
 def maps(request):
     return render(request, 'maps.html')
 
