@@ -117,6 +117,7 @@ def cart(request):
     return render(request, 'cart.html', {'animals': animals, 'total': total})
 
 
+
 def maps(request):
     return render(request, 'maps.html')
 
