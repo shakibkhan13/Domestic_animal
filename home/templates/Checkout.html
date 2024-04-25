@@ -58,13 +58,14 @@
                 </div>
                 <div style="flex:2">{{ animal.Animal_name }}</div>
                 <div style="flex: 1">{{ animal.Animal_Prize }}</div>
-                <div style="flex: 1;">x2</div>
+                <div style="flex: 1;">x1</div>
             </div>
             {% endfor %}
-
+            {% for animal in animals %}
             <hr />
-            <h5>Items : 2</h5>
-            <h5>Total : 240000</h5>
+            <h5>Items : 1</h5>
+            <h5>Total : {{ animal.Animal_Prize }}</h5>
+            {% endfor %}
         </div>
     </div>
 </div>
