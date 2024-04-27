@@ -1,10 +1,11 @@
-{% extends "base.html" %} {% load static %} {% block start %}
+{% extends "base.html" %} 
+{% load static %} 
+{% block start %}
 
 <div class="row">
   <div class="col-lg-12">
     <div class="box-element">
       <a class="btn btn-outline-dark" href="{% url 'home' %}">&#x2190; Continue Shopping</a>
-
       <br />
       <br />
       {% for animal in animals %}
@@ -24,7 +25,6 @@
     </div>
     {% endfor %}
     <br />
-
     <div class="box-element">
       <div class="cart-row">
         <div style="flex: 2"></div>
@@ -33,27 +33,22 @@
         <div style="flex: 2"><strong>Quantity</strong></div>
         <div style="flex: 2"><strong>Total</strong></div>
       </div>
-
       {% for animal in animals %}
-      <div class="cart-row">
+      <div class="cart-row" style="display: flex; justify-content: flex-start">
         <div style="flex: 2">
           <img src="{{ animal.Animal_image.url }}" class="row-image" />
         </div>
         <div style="flex: 2">{{ animal.Animal_name }}</div>
         <div style="flex: 1">{{ animal.Animal_Prize }}</div>
         <div style="flex: 2">
-          <p class="quantity">1</p>
+          <p class="quantity">X{{ animal.quantity }}</p>
           <div class="quantity">
             <img class="chg-quantity" src="{% static 'images/down.png' %}" />
-
             <img class="chg-quantity" src="{% static 'images/up.png' %}" />
-
           </div>
         </div>
-        <div style="flex: 1">{{ animal.Animal_Prize }}</div>
-
+        <div style="flex: 1">{{ animal.total_price }}</div>
       </div>
-
       {% endfor %}
     </div>
   </div>
