@@ -19,8 +19,8 @@
             {% csrf_token %}
             <input type="hidden" name="animal_id" value="{{ animal.id }}">
             <button type="submit" class="btn btn-primary">Add to Cart</button>
-            <!-- <a href="#" class="btn btn-light" style="width: 100px">View</a>
-            <a href="{% url 'delete_animal' animal.id %}" class="btn btn-danger m-2">Delete</a>  -->
+            <!-- <a href="#" class="btn btn-light" style="width: 100px">View</a>-->
+            <a href="{% url 'delete_animal' animal.id %}" class="btn btn-danger m-2">Delete</a>  
           </form>
         </div>
       </div>
