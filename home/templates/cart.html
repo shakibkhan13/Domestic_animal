@@ -1,5 +1,5 @@
-{% extends "base.html" %} 
-{% load static %} 
+{% extends "base.html" %}
+{% load static %}
 {% block start %}
 
 <div class="row">
@@ -41,17 +41,51 @@
         <div style="flex: 2">{{ animal.Animal_name }}</div>
         <div style="flex: 1">{{ animal.Animal_Prize }}</div>
         <div style="flex: 2">
-          <p class="quantity">X{{ animal.quantity }}</p>
+          <p class="quantity" id="quantity_{{ animal.id }}">X{{ animal.quantity }}</p>
           <div class="quantity">
-            <img class="chg-quantity" src="{% static 'images/down.png' %}" />
-            <img class="chg-quantity" src="{% static 'images/up.png' %}" />
+            <img class="chg-quantity" src="{% static 'images/down.png' %}" onclick="changeQuantity('{{ animal.id }}', -1)" />
+            <img class="chg-quantity" src="{% static 'images/up.png' %}" onclick="changeQuantity('{{ animal.id }}', 1)" />
           </div>
         </div>
-        <div style="flex: 1">{{ animal.total_price }}</div>
+        <div style="flex: 1" id="total_price_{{ animal.id }}">{{ animal.total_price }}</div>
       </div>
       {% endfor %}
     </div>
   </div>
 </div>
+
+<script>
+  function changeQuantity(animalId, change) {
+    var quantityElement = document.getElementById('quantity_' + animalId);
+    var totalElement = document.getElementById('total_price_' + animalId);
+
+    if (!quantityElement || !totalElement) {
+      console.error('Quantity or total price element not found');
+      return;
+    }
+
+    console.log('Quantity Element Inner Text:', quantityElement.innerText); 
+
+    var currentQuantity = parseInt(quantityElement.innerText.slice(1));
+    var pricePerItem = parseFloat(totalElement.innerText);
+
+    console.log('Current Quantity:', currentQuantity); 
+    console.log('Price Per Item:', pricePerItem); 
+
+    if (isNaN(currentQuantity)) {
+      console.error('Invalid current quantity');
+      return;
+    }
+
+    var newQuantity = currentQuantity + change;
+    if (newQuantity < 0) {
+      return;
+    }
+    var newTotal = pricePerItem * newQuantity;
+    quantityElement.innerText = 'X' + newQuantity;
+    totalElement.innerText = newTotal.toFixed(2);
+  }
+</script>
+
 
 {% endblock %}
