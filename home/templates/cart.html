@@ -8,14 +8,13 @@
       <a class="btn btn-outline-dark" href="{% url 'home' %}">&#x2190; Continue Shopping</a>
       <br />
       <br />
-      {% for animal in animals %}
       <table class="table">
         <tr>
           <th>
-            <h5>Items : <strong>3</strong></h5>
+            <h5>Items : <strong>{{ animals|length }}</strong></h5>
           </th>
           <th>
-            <h5>Total : <strong>{{ animal.Animal_Prize }}</strong></h5>
+            <h5>Total : <strong>{{ total_price }}</strong></h5>
           </th>
           <th>
             <a style="float: right; margin: 5px" class="btn btn-success" href="{% url 'checkout' %}">Checkout</a>
@@ -24,7 +23,6 @@
       </table>
     </div>
     <br />
-    {% endfor %}
     <div class="box-element">
       <div class="cart-row">
         <div style="flex: 2"></div>
@@ -41,13 +39,13 @@
         <div style="flex: 2">{{ animal.Animal_name }}</div>
         <div style="flex: 1">{{ animal.Animal_Prize }}</div>
         <div style="flex: 1">
-          <p class="quantity"> {{animal.Quantity}}</p>     <!-- <--{{ animal.quantity }} -->
+          <p class="quantity">X{{ animal.quantity }}</p>
           <div class="quantity">
             <img class="chg-quantity" src="{% static 'images/down.png' %}" />
             <img class="chg-quantity" src="{% static 'images/up.png' %}" />
           </div>
         </div>
-        <div style="flex: 1">50$</div> <!--{{ animal.total_price }}-->
+        <div style="flex: 1">{{ animal.Animal_Prize }}</div> 
       </div>
       {% endfor %}
     </div>

@@ -12,12 +12,14 @@ class Animal(models.Model):
     Animal_color = models.CharField(max_length=100, default='Unknown')
     Animal_description = models.TextField()
     Animal_image = models.ImageField(upload_to='animal_images', default='')
+    quantity = models.PositiveIntegerField(default=1)  
 
     def __str__(self):
         return self.Animal_name
 
+
 class Customer(models.Model):
-    User = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=200, null=True)
     email = models.CharField(max_length=200, null=True)
 
