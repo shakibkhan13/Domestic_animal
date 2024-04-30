@@ -6,12 +6,9 @@ from django.contrib.auth.models import User
 from .models import Animal, Order, ShippingAddress
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
+from .models import Customer, Animal
 
 
-
-
-
-# @login_required(login_url="/login/")
 def home(request):
     animals = Animal.objects.all()
     return render(request, 'home.html', {'animals': animals})
@@ -115,19 +112,24 @@ def delete_animal(request ,id):
 
 @login_required(login_url="/login/")
 def cart(request):
+    try:
+        customer = request.user.customer
+    except Customer.DoesNotExist:
+        customer = None  
     animals = Animal.objects.all()
     total_price = sum(animal.Animal_Prize for animal in animals)
-    return render(request, 'cart.html', {'animals': animals, 'total_price': total_price})
+    return render(request, 'cart.html', {'customer': customer, 'animals': animals, 'total_price': total_price})
 
-@login_required(login_url="/login/")
-def update_cart(request, animal_id):
-    if request.method == "POST":
-        quantity = int(request.POST.get('quantity'))
-        animal = get_object_or_404(Animal, pk=animal_id)
-        animal.quantity = quantity
-        animal.save()
-        messages.success(request, 'Cart updated successfully')
-    return redirect('/cart/')
+
+# @login_required(login_url="/login/")
+# def update_cart(request, animal_id):
+#     if request.method == "POST":
+#         quantity = int(request.POST.get('quantity'))
+#         animal = get_object_or_404(Animal, pk=animal_id)
+#         animal.quantity = quantity
+#         animal.save()
+#         messages.success(request, 'Cart updated successfully')
+#     return redirect('/cart/')
 
 
 
