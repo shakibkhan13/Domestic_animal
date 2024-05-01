@@ -24,7 +24,10 @@ class Customer(models.Model):
     email = models.CharField(max_length=200, null=True)
 
     def __str__(self):
-        return self.name
+        return self.name if self.name is not None else ""
+
+
+
 
 class Product(models.Model):
     name = models.CharField(max_length=200, null=True)

@@ -57,8 +57,8 @@
                     <img class="row-image" src="{{ animal.Animal_image.url }}">
                 </div>
                 <div style="flex:2">{{ animal.Animal_name }}</div>
-                <div style="flex: 2">{{ animal.Animal_Prize }} Taka</div>
-                <div style="flex: 2;">x1</div>
+                <div style="flex: 2">{{ animal.Animal_Prize }} </div>
+                <div style="flex: 2;">X{{ animal.quantity }}</div>
             </div>
             {% endfor %}
             <!-- {% for animal in animals %} -->
@@ -178,5 +178,5 @@
         }
         return cookieValue;
     }
-</script>
+</script> 
 {% endblock %}
