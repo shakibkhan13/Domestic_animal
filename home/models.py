@@ -24,7 +24,10 @@ class Customer(models.Model):
     email = models.CharField(max_length=200, null=True)
 
     def __str__(self):
-        return self.name
+        return self.name if self.name is not None else ""
+
+
+
 
 class Product(models.Model):
     name = models.CharField(max_length=200, null=True)
@@ -42,19 +45,26 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.id)
+    @property
+    def get_cart_total(self):
+        orderitem = self.orderitem_set.all()
+        return sum(Animal.get_total for Animal in orderitem)
+
+    @property
+    def get_cart_animal(self):
+        orderitem = self.orderitem_set.all()
+        return sum(Animal.quantity for Animal in orderitem)
 
 
 class OrderItem(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    Animal = models.ForeignKey(Animal, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
+    @property
     def get_total(self):
         return self.product.Price * self.quantity
-
-    def __str__(self):
-        return f"OrderItem - {self.product.name}"
 
 
 class ShippingAddress(models.Model): 

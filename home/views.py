@@ -121,21 +121,15 @@ def cart(request):
     return render(request, 'cart.html', {'customer': customer, 'animals': animals, 'total_price': total_price})
 
 
-# @login_required(login_url="/login/")
-# def update_cart(request, animal_id):
-#     if request.method == "POST":
-#         quantity = int(request.POST.get('quantity'))
-#         animal = get_object_or_404(Animal, pk=animal_id)
-#         animal.quantity = quantity
-#         animal.save()
-#         messages.success(request, 'Cart updated successfully')
-#     return redirect('/cart/')
-
-
 
 def maps(request):
     return render(request, 'maps.html')
 
 def checkout(request):
+    try:
+        customer = request.user.customer
+    except Customer.DoesNotExist:
+        customer = None  
     animals = Animal.objects.all()
-    return render(request, 'checkout.html', {'animals': animals})
+    total_price = sum(animal.Animal_Prize for animal in animals)
+    return render(request, 'checkout.html', {'customer': customer, 'animals': animals, 'total_price': total_price})
