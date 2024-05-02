@@ -7,6 +7,8 @@ from .models import Animal, Order, ShippingAddress
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from .models import Customer, Animal
+from django.http import JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def home(request):
@@ -126,6 +128,12 @@ def maps(request):
     return render(request, 'maps.html')
 
 def checkout(request):
+    # try:
+    #     customer = request.user.customer
+    # except Customer.DoesNotExist:
+    #     customer = None  
+    # animals = Animal.objects.all()
+    # total_price = sum(animal.Animal_Prize for animal in animals)
     try:
         customer = request.user.customer
     except Customer.DoesNotExist:
@@ -133,3 +141,5 @@ def checkout(request):
     animals = Animal.objects.all()
     total_price = sum(animal.Animal_Prize for animal in animals)
     return render(request, 'checkout.html', {'customer': customer, 'animals': animals, 'total_price': total_price})
+
+
