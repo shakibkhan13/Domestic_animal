@@ -9,7 +9,7 @@ from django.db.models import Sum
 from .models import Customer, Animal
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
-
+from django.http import JsonResponse
 
 def home(request):
     animals = Animal.objects.all()
@@ -143,3 +143,10 @@ def checkout(request):
     return render(request, 'checkout.html', {'customer': customer, 'animals': animals, 'total_price': total_price})
 
 
+def update_item(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    data = request.POST
+    product_id = data.get('productId')
+    action = data.get('action')
+    return JsonResponse({'message': 'Item updated successfully'}, status=200)
