@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import update_item
 
 urlpatterns = [
     path('', views.login_page, name='home'),
@@ -14,6 +15,6 @@ urlpatterns = [
     path('seller/', views.seller, name='seller'),
     path('cart/', views.cart, name='cart'),
     path('maps/', views.maps, name='maps'),
-    # path('cart/update/<int:animal_id>/', views.update_cart, name='update_cart'),
+    path('update_item/', update_item, name='update_item'),
     path('delete-animal/<int:id>/', views.delete_animal, name="delete_animal"),
 ]

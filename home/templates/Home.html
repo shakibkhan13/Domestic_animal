@@ -1,30 +1,55 @@
 {% extends "base.html" %}
 {% load static %}
 {% block start %}
+<style>
+  .thumbnail:hover {
+    transform: scaleX(3) scaleY(3); /* Adjust the scale factors for both X and Y axes */
+    transition: transform 0.3s ease;
+  }
+</style>
 
 <div class="container">
   <div class="row">
     {% for animal in animals %}
     <div class="col-lg-4">
-        <img src="{{ animal.Animal_image.url }}" class="thumbnail" >    <!--style="height: 200px"-->
         <div class="box-element product">
+          <img src="{{ animal.Animal_image.url }}" class="thumbnail">
           <h5><strong>{{ animal.Animal_name }}</strong></h5>
           <h6>Weight: {{ animal.Animal_Weight }} KG</h6>
           <h6>Price: {{ animal.Animal_Prize }} Taka</h6>
           <h6>Farm Location: {{ animal.Animal_Farm }}</h6>
           <h6>Animal Color: {{ animal.Animal_description }}</h6>
 
-          <form action="{% url 'cart' %}" method="post">
+          <form id="add-to-cart-form-{{ animal.id }}" method="post"> <!-- Use a unique ID for each form -->
             {% csrf_token %}
-            <!-- <input type="hidden" name="animal_id" value="{{ animal.id }}"> -->
-            <button data-product="{{ animal.id }}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+            <input type="hidden" name="animal_id" value="{{ animal.id }}">
+            <button data-product="{{ animal.id }}" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
             <a href="#" class="btn btn-light" style="width: 100px">View</a>
-            <!-- <a href="{% url 'delete_animal' animal.id %}" class="btn btn-danger m-2">Delete</a>   -->
+            <a href="{% url 'delete_animal' animal.id %}" class="btn btn-danger m-2">Delete</a>  
           </form>
         </div>
       </div>
     {% endfor %}
   </div>
 </div>
+
+<script>
+  const cartUrl = "{% url 'cart' %}";
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const addToCartButtons = document.querySelectorAll('.update-cart');
+
+    addToCartButtons.forEach(button => {
+      button.addEventListener('click', function(event) {
+        event.preventDefault(); 
+
+        const productId = this.getAttribute('data-product');
+        const form = document.getElementById(`add-to-cart-form-${productId}`);
+        form.submit();
+        window.location.href = cartUrl;
+      });
+    });
+  });
+</script>
 
 {% endblock %}
