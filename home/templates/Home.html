@@ -3,7 +3,7 @@
 {% block start %}
 <style>
   .thumbnail:hover {
-    transform: scaleX(3) scaleY(3); /* Adjust the scale factors for both X and Y axes */
+    transform: scaleX(3) scaleY(3); 
     transition: transform 0.3s ease;
   }
 </style>
@@ -25,7 +25,7 @@
             <input type="hidden" name="animal_id" value="{{ animal.id }}">
             <button data-product="{{ animal.id }}" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
             <a href="#" class="btn btn-light" style="width: 100px">View</a>
-            <a href="{% url 'delete_animal' animal.id %}" class="btn btn-danger m-2">Delete</a>  
+            <!-- <a href="{% url 'delete_animal' animal.id %}" class="btn btn-danger m-2">Delete</a>   -->
           </form>
         </div>
       </div>
