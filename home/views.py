@@ -10,6 +10,7 @@ from .models import Customer, Animal
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
+from .models import Customer
 
 def home(request):
     animals = Animal.objects.all()
@@ -54,31 +55,32 @@ def hospital(request):
     return render(request, 'hospital.html')
 
 def Register(request):
-    if request.method != "POST":
-        return render(request, 'register.html')   
-    first_name = request.POST.get('first_name')
-    last_name = request.POST.get('last_name')
-    username = request.POST.get('username')
-    password = request.POST.get('password')
+    if request.method == "POST":
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-    if not username:  
-        return redirect('/register/') 
+        if not username:  
+            return redirect('/register/') 
 
-    user = User.objects.filter(username=username)
+        user = User.objects.filter(username=username)
 
-    if user.exists():
-        messages.error(request, 'Username already taken')
-        return redirect('/register/')
+        if user.exists():
+            messages.error(request, 'Username already taken')
+            return redirect('/register/')
+        user = User.objects.create_user(
+            username=username,
+            password=password,
+            first_name=first_name,
+            last_name=last_name,
+        )
+        Customer.objects.create(user=user)
+        
+        messages.success(request, 'Account created successfully')
+        return redirect('/login/')
 
-    user = User.objects.create_user(
-        username=username,
-        password=password,
-        first_name=first_name,
-        last_name=last_name,
-    )
-    user.save()
-    messages.success(request, 'Account created successfully')
-    return redirect('/register/')
+    return render(request, 'register.html')
 
 @login_required(login_url="/login/")
 def seller(request):
@@ -114,13 +116,22 @@ def delete_animal(request ,id):
 
 @login_required(login_url="/login/")
 def cart(request):
-    try:
-        customer = request.user.customer
-    except Customer.DoesNotExist:
-        customer = None  
-    animals = Animal.objects.all()
-    total_price = sum(animal.Animal_Prize for animal in animals)
-    return render(request, 'cart.html', {'customer': customer, 'animals': animals, 'total_price': total_price})
+    if request.user.is_authenticated:
+        try:
+            customer = request.user.customer
+        except Customer.DoesNotExist:
+            messages.error(request, 'Please register to access the cart.')
+            return redirect('/register/') 
+
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        items = []
+        order = {'get_cart_total':0, 'get_cart_items':0}
+
+    context = {'items': items, 'order': order, 'cartItems': cartItems}
+    return render(request, 'cart.html', context)
 
 
 
@@ -128,25 +139,43 @@ def maps(request):
     return render(request, 'maps.html')
 
 def checkout(request):
-    # try:
-    #     customer = request.user.customer
-    # except Customer.DoesNotExist:
-    #     customer = None  
-    # animals = Animal.objects.all()
-    # total_price = sum(animal.Animal_Prize for animal in animals)
-    try:
+    if request.user.is_authenticated:
         customer = request.user.customer
-    except Customer.DoesNotExist:
-        customer = None  
-    animals = Animal.objects.all()
-    total_price = sum(animal.Animal_Prize for animal in animals)
-    return render(request, 'checkout.html', {'customer': customer, 'animals': animals, 'total_price': total_price})
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        items = []
+        order = {'get_cart_total':0, 'get_cart_items':0}
+        cartItems = order['get_cart_items']
+
+    context = {'items': items, 'order': order, 'cartItems': cartItems}
+    return render(request, 'checkout.html', context)
+
+
 
 
 def update_item(request):
-    if request.method != 'POST':
-        return JsonResponse({'error': 'Method not allowed'}, status=405)
-    data = request.POST
-    product_id = data.get('productId')
-    action = data.get('action')
-    return JsonResponse({'message': 'Item updated successfully'}, status=200)
+    data = json.loads(request.body)
+    productId = data['productId']
+    action = data['action']
+    print('Action:', action)
+    print('Product:', productId)
+
+    customer = request.user.customer
+    product = Product.objects.get(id=productId)
+    order, created = Order.objects.get_or_create(customer=customer, complete=False)
+
+    orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+
+    if action == 'add':
+        orderItem.quantity = (orderItem.quantity + 1)
+    elif action == 'remove':
+        orderItem.quantity = (orderItem.quantity - 1)
+
+    orderItem.save()
+
+    if orderItem.quantity <= 0:
+        orderItem.delete()
+
+    return JsonResponse('Item was added', safe=False)
