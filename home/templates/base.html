@@ -168,12 +168,12 @@
             </div>
             <div class="form-inline my-2 my-lg-0">
                 {% if request.user.is_authenticated %}
-                <p class="text-light me-3" style="margin-bottom: 5px;">{{ request.user.username }}&nbsp;</p>
-                <a href="/logout/" class="btn btn-success me-2 d-flex">Logout</a>
-                <a href="{% url 'cart' %}" class="me-2 d-flex">
+                <p class="text-light me-3" style="margin-bottom: 5px;"> {{ request.user.username }} &nbsp;</p>
+                <a href="/logout/" class="btn btn-success me-2 d-flex">  Logout</a>
+                <!-- <a href="{% url 'cart' %}" class="me-2 d-flex">
                     <img id="cart-icon" src="{% static 'images/cart.png' %}">
-                </a>
-                <p id="cart-total" class="mt-2">0</p>
+                </a> -->
+                <!-- <p id="cart-total" class="mt-2">0</p> -->
                 <a href="#" class="me-2 d-flex">
                     <img></img>
                 </a>
